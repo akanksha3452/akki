@@ -2,35 +2,35 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "nginx-homeloan"
+  name: "nginx-4"
   namespace: "default"
   labels:
-    app: "nginx-homeloan"
+    app: "nginx-4"
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: "nginx-homeloan"
+      app: "nginx-4"
   template:
     metadata:
       labels:
-        app: "nginx-homeloan"
+        app: "nginx-4"
     spec:
       containers:
       - name: "akki-sha256-1"
-        image: "gcr.io/cap1-339903/github.com/akanksha3452/akki@sha256:947a36cfff4fe0e14ad061c77bc80436b9e766840db648f39adcca504a4e0d14"
+        image: "gcr.io/cap1-339903/github.com/akanksha3452/akki@sha256:ee8ffa53c4b5bd07825bccae70667057c55375f8a350c6b72003334f474501b9"
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "nginx-homeloan-hpa-xh9l"
+  name: "nginx-4-hpa-njps"
   namespace: "default"
   labels:
-    app: "nginx-homeloan"
+    app: "nginx-4"
 spec:
   scaleTargetRef:
     kind: "Deployment"
-    name: "nginx-homeloan"
+    name: "nginx-4"
     apiVersion: "apps/v1"
   minReplicas: 1
   maxReplicas: 5
