@@ -2,35 +2,35 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "nginx-4"
+  name: "nginx-akanksha2"
   namespace: "default"
   labels:
-    app: "nginx-4"
+    app: "nginx-akanksha2"
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: "nginx-4"
+      app: "nginx-akanksha2"
   template:
     metadata:
       labels:
-        app: "nginx-4"
+        app: "nginx-akanksha2"
     spec:
       containers:
       - name: "akki-sha256-1"
-        image: "gcr.io/cap1-339903/github.com/akanksha3452/akki@sha256:ee8ffa53c4b5bd07825bccae70667057c55375f8a350c6b72003334f474501b9"
+        image: "gcr.io/cap1-339903/github.com/akanksha3452/akki@sha256:0666daa6380fa3ef1f40b5d04309805d8cb267acc87c6e22bd97bd6d55274550"
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "nginx-4-hpa-njps"
+  name: "nginx-akanksha2-hpa-2hva"
   namespace: "default"
   labels:
-    app: "nginx-4"
+    app: "nginx-akanksha2"
 spec:
   scaleTargetRef:
     kind: "Deployment"
-    name: "nginx-4"
+    name: "nginx-akanksha2"
     apiVersion: "apps/v1"
   minReplicas: 1
   maxReplicas: 5
