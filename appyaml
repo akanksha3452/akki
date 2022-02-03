@@ -1,0 +1,41 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "nginx-homeloan"
+  namespace: "default"
+  labels:
+    app: "nginx-homeloan"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "nginx-homeloan"
+  template:
+    metadata:
+      labels:
+        app: "nginx-homeloan"
+    spec:
+      containers:
+      - name: "akki-sha256-1"
+        image: "gcr.io/cap1-339903/github.com/akanksha3452/akki@sha256:947a36cfff4fe0e14ad061c77bc80436b9e766840db648f39adcca504a4e0d14"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "nginx-homeloan-hpa-xh9l"
+  namespace: "default"
+  labels:
+    app: "nginx-homeloan"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "nginx-homeloan"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
