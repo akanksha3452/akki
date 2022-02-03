@@ -1,0 +1,41 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "nginx-akanksha-front"
+  namespace: "default"
+  labels:
+    app: "nginx-akanksha-front"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "nginx-akanksha-front"
+  template:
+    metadata:
+      labels:
+        app: "nginx-akanksha-front"
+    spec:
+      containers:
+      - name: "akki-sha256-1"
+        image: "gcr.io/cap1-339903/github.com/akanksha3452/akki@sha256:bcfeb999629898161ef20cbbc664cd0f01c15e47df72534a2c37f1a7d156aa85"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "nginx-akanksha-front-hpa-6sru"
+  namespace: "default"
+  labels:
+    app: "nginx-akanksha-front"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "nginx-akanksha-front"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
