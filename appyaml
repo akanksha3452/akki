@@ -1,41 +1,153 @@
----
-apiVersion: "apps/v1"
-kind: "Deployment"
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: "nginx-akanksha2"
-  namespace: "default"
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2022-02-03T14:48:23Z"
+  generation: 1
   labels:
-    app: "nginx-akanksha2"
+    app: nginx-team6-2
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:app: {}
+      f:spec:
+        f:progressDeadlineSeconds: {}
+        f:replicas: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:strategy:
+          f:rollingUpdate:
+            .: {}
+            f:maxSurge: {}
+            f:maxUnavailable: {}
+          f:type: {}
+        f:template:
+          f:metadata:
+            f:labels:
+              .: {}
+              f:app: {}
+          f:spec:
+            f:containers:
+              k:{"name":"akki-sha256-1"}:
+                .: {}
+                f:env:
+                  .: {}
+                  k:{"name":"server"}:
+                    .: {}
+                    f:name: {}
+                    f:valueFrom:
+                      .: {}
+                      f:configMapKeyRef:
+                        .: {}
+                        f:key: {}
+                        f:name: {}
+                f:image: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:resources: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+            f:dnsPolicy: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:terminationGracePeriodSeconds: {}
+    manager: GoogleCloudConsole
+    operation: Update
+    time: "2022-02-03T14:48:23Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:deployment.kubernetes.io/revision: {}
+      f:status:
+        f:conditions:
+          .: {}
+          k:{"type":"Available"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Progressing"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+        f:observedGeneration: {}
+        f:replicas: {}
+        f:unavailableReplicas: {}
+        f:updatedReplicas: {}
+    manager: kube-controller-manager
+    operation: Update
+    time: "2022-02-03T14:48:41Z"
+  name: nginx-team6-2
+  namespace: default
+  resourceVersion: "1365625"
+  uid: 646389da-75b1-478b-bf7c-39cd12afbdc5
 spec:
+  progressDeadlineSeconds: 600
   replicas: 3
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: "nginx-akanksha2"
+      app: nginx-team6-2
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: "nginx-akanksha2"
+        app: nginx-team6-2
     spec:
       containers:
-      - name: "akki-sha256-1"
-        image: "gcr.io/cap1-339903/github.com/akanksha3452/akki@sha256:0666daa6380fa3ef1f40b5d04309805d8cb267acc87c6e22bd97bd6d55274550"
----
-apiVersion: "autoscaling/v2beta1"
-kind: "HorizontalPodAutoscaler"
-metadata:
-  name: "nginx-akanksha2-hpa-2hva"
-  namespace: "default"
-  labels:
-    app: "nginx-akanksha2"
-spec:
-  scaleTargetRef:
-    kind: "Deployment"
-    name: "nginx-akanksha2"
-    apiVersion: "apps/v1"
-  minReplicas: 1
-  maxReplicas: 5
-  metrics:
-  - type: "Resource"
-    resource:
-      name: "cpu"
-      targetAverageUtilization: 80
+      - env:
+        - name: server
+          valueFrom:
+            configMapKeyRef:
+              key: server
+              name: nginx-team6-2-config-pewr
+        image: gcr.io/cap1-339903/github.com/akanksha3452/akki@sha256:84a180afdab22d52f05f38a063ff67f4b80abc63f5784ae9f4e3fcb3f05ff06c
+        imagePullPolicy: IfNotPresent
+        name: akki-sha256-1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  conditions:
+  - lastTransitionTime: "2022-02-03T14:48:23Z"
+    lastUpdateTime: "2022-02-03T14:48:23Z"
+    message: Deployment does not have minimum availability.
+    reason: MinimumReplicasUnavailable
+    status: "False"
+    type: Available
+  - lastTransitionTime: "2022-02-03T14:48:23Z"
+    lastUpdateTime: "2022-02-03T14:48:40Z"
+    message: ReplicaSet "nginx-team6-2-6b6d79f475" is progressing.
+    reason: ReplicaSetUpdated
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  replicas: 3
+  unavailableReplicas: 1
+  updatedReplicas: 1
